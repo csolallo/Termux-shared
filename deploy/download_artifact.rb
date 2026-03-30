@@ -48,8 +48,8 @@ def fetch(token, url)
 end
 
 # check preconditions
-[ENV['TOKEN'], ENV['APP']].each do |tok|
-  if tok.nil?
+['TOKEN', 'APP'].each do |tok|
+  if ENV[tok].nil?
     STDERR.puts "#{tok} environment variable not found."
     exit(-1)
   end
