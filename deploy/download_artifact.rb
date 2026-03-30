@@ -57,9 +57,10 @@ end
 
 begin
   token = ENV['TOKEN']
+  app = ENV['APP']
 
   # get the name and the download_url of the most recent artifact
-  archive_details = fetch(token, 'https://api.github.com/repos/csolallo/Groceries/actions/artifacts') do |json|
+  archive_details = fetch(token, "https://api.github.com/repos/csolallo/#{app}/actions/artifacts") do |json|
     json = json["body"]
 
     artifact_count = json["total_count"]
