@@ -56,6 +56,8 @@ end
 end 
 
 begin
+  token = ENV['TOKEN']
+
   # get the name and the download_url of the most recent artifact
   archive_details = fetch(token, 'https://api.github.com/repos/csolallo/Groceries/actions/artifacts') do |json|
     json = json["body"]
