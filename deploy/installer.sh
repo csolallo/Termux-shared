@@ -26,7 +26,7 @@ prepare_working_dir() {
     fi
 
     pushd $working > /dev/null
-
+    
     if [ ! -f download_artifact.rb ]; then
         wget -q https://raw.githubusercontent.com/csolallo/Termux-shared/refs/heads/main/deploy/download_artifact.rb
     fi
@@ -96,6 +96,13 @@ done
 if [ -z "$app" -o -z "$working" -o -z "$dest" ]; then
     exit -1
 fi
+
+if [[ "$app" == "kexp" ]]; then
+    app_setup_file_url="https://raw.githubusercontent.com/csolallo/kexp/refs/heads/main/kexp-cli/deploy/kexp-setup.sh"
+else
+    app_setup_file_url="https://raw.githubusercontent.com/csolallo/$app/refs/heads/main/deploy/$app-setup.sh"
+fi
+wget -q $app_setup_file_url
 
 source "./$app-setup.sh"
 
