@@ -61,35 +61,16 @@ function prepare_build() {
     unzip archive.tar.gz.zip
     tar -xvf archive.tar.gz
 
-    prepare_app_build "$app" "$working"
+    prepare_app_build "$verbose"
 
     popd
 }
 
 # $1 : working folder
 # $2 : destination folder
-#move_to_destination() {
-#    mkdir -p $2/groceries && cp -a $1/scripts/. $2/groceries
-#}
-
-# $1 : destination folder
-# create_helper_script() {
-#     sc=$(cat <<EOF
-# #!/data/data/com.termux/files/usr/bin/bash
-
-# pushd ~/.termux/tasker/groceries > /dev/null
-# SSL_CERT_DIR=${SSL_CERT_DIR} SSL_CERT_FILE=${SSL_CERT_FILE} bundle exec ruby driver.rb \$1
-# popd > /dev/null
-
-# rm /data/data/com.termux/files/home/storage/shared/Documents/Xfer/copied-*
-# EOF
-# )
-#     if [ "$verbose" == "1" ]; then
-#         echo "$sc"
-#     fi
-#     echo "$sc" > groceries.sh
-#     chmod +x groceries.sh
-# }
+move_to_destination() {
+    move_app_to_destination "$1" "$2"
+}
 
 while getopts "a:w:d:hv" opt; do
     case "$opt" in
@@ -119,7 +100,7 @@ fi
 source "./$app-setup.sh"
 
 # test to ensure required functions are exported
-expected_funcs=("prepare_app_build")
+expected_funcs=("prepare_app_build" "move_app_to_destination")
 for func in "${expected_funcs[@]}"; do
     if [[ -z "$(declare -p -f $func)" ]]; then
         echo "required function $func not present in setup file"
@@ -142,7 +123,7 @@ prepare_build "$app" "$working"
 
 echo "Step 3: deploy to destination folder"
 echo "----------------------------------------------------------------"
-#move_to_destination "$working" "$dest"
+move_to_destination "$working" "$dest"
 echo "Done"
 
 # cleanup "$working"
