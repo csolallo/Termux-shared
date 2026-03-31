@@ -55,7 +55,15 @@ function prepare_build() {
     local app="$1"
     local working="$2"
 
+    pushd $working
+
+    # always named the same
+    unzip archive.tar.gz.zip
+    tar -xvf archive.tar.gz
+
     prepare_app_build "$app" "$working"
+
+    popd
 }
 
 # $1 : working folder
