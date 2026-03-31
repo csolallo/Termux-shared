@@ -64,8 +64,8 @@ begin
     json = json["body"]
 
     artifact_count = json["total_count"]
-    unless artifact_count == 1
-      raise "Expected 1 artifact, got #{artifact_count}."
+    unless artifact_count >= 1
+      raise "Expected at least 1 artifact, got #{artifact_count}."
     end
     
     {
