@@ -31,3 +31,13 @@ We'll install these additional packages in our linux environment:
 
 #### References ####
 [This git page](https://gist.github.com/txoof/f7670b80e983582f7af6d1a7791c15ab) was a huge help in figuring out what I needed.
+
+#### Troubleshooting ####
+
+Termux can no longer access ~/storage (/data/data/com.termux/files/home/storage):  
+
+If you've run the command before and it stopped working, especially after an Android update, revoke and re-grant permissions in your device settings:
+* Go to Android Settings > Applications > Termux > Permissions.  
+* Revoke the Storage permission (or "Files and media" permission).  
+* Grant the permission again.
+* Force stop and restart the Termux app
